@@ -1,28 +1,36 @@
 import { useState } from "react";
+import DrinkType from "./DrinkTypes";
 
 interface MenuProps {
-  MenuTuple: [string, string[]];
-  onselectdrink: (drink: string) => void;
+  drinkType: DrinkType;
+  menuIndex: number;
+  selectedMenuIndex: number;
+  setSelectedMenuIndex: any;
 }
 
-function BuildMenu({ MenuTuple: [heading, drinks], onselectdrink }: MenuProps) {
+function BuildMenu({
+  drinkType,
+  menuIndex,
+  selectedMenuIndex,
+  setSelectedMenuIndex,
+}: MenuProps) {
   const [selectedIndex, setSelectedIndex] = useState(-1);
 
   return (
     <>
-      <h3>{heading}</h3>
-      <ul className="list-group">
-        {drinks.map((drink, index) => (
+      <h3>{drinkType.Type}</h3>
+      <ul className="list-group" key={drinkType.Type + menuIndex}>
+        {drinkType.Drinks.map((drink: string, index: number) => (
           <li
+            key={drink + index}
             className={
-              selectedIndex === index
+              selectedIndex === index && selectedMenuIndex === menuIndex
                 ? "list-group-item list-group-item-dark"
                 : "list-group-item"
             }
-            key={drink}
             onClick={() => {
               setSelectedIndex(index);
-              onselectdrink(drink);
+              setSelectedMenuIndex(menuIndex);
             }}
           >
             {drink}

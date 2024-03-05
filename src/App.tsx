@@ -1,9 +1,10 @@
 import BuildMenu from "./components/BuildMenu";
 import Title from "./Title";
-import DrinkTypes from "./components/DrinkTypes";
+import DrinkType from "./components/DrinkTypes";
+import { useState } from "react";
 
 function App() {
-  const DrinkDict: DrinkTypes[] = [
+  const DrinkTypes: DrinkType[] = [
     {
       Type: "Classic's",
       Drinks: ["Latte", "Mocha", "Cappaccino"],
@@ -17,18 +18,20 @@ function App() {
       Drinks: ["London Fog", "Earl Grey", "Herbal Mint"],
     },
   ];
-  const handleSelectDrink = (drink: string) => {
-    console.log(drink);
-  };
-  const handleMenu: DrinkTypes[] = DrinkDict;
+
+  const [selectedMenuIndex, setSelectedMenuIndex] = useState(-1);
 
   return (
     <>
       <Title></Title>
-      <BuildMenu
-        objMenu={handleMenu}
-        onselectdrink={handleSelectDrink}
-      ></BuildMenu>
+      {DrinkTypes.map((drink: DrinkType, index: number) => (
+        <BuildMenu
+          drinkType={drink}
+          menuIndex={index}
+          selectedMenuIndex={selectedMenuIndex}
+          setSelectedMenuIndex={setSelectedMenuIndex}
+        ></BuildMenu>
+      ))}
     </>
   );
 }

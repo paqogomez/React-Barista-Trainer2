@@ -1,5 +1,5 @@
-interface DrinkTypes {
+interface DrinkType {
   Type: string;
   Drinks: string[];
 }
-export default DrinkTypes;
+export default DrinkType;
